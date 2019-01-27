@@ -6,9 +6,8 @@ import os
 import sys
 
 def getArgs(argv=None):
-    rules = "Remember:\n- No task larger than 5 pomodoros .\n- Any interruption = restart the pomodoro."
     parser = argparse.ArgumentParser(description="Pomodoro Timer with various \
-            length of pomodor", epilog=rules)
+            length of pomodor")
     parser.add_argument('-s','--standard', action='store_true', default=True,
             help='25 min work, 5 min break\tDEFAULT')
     parser.add_argument('-b','--buster', action='store_true', default=False,
@@ -51,6 +50,8 @@ def timer():
                 sys.exit(0)
 
 def main(TIME, BREAK):
+    print("Remember:\n- No task larger than 5 pomodori.\n\
+- Any interruptions = restart the pomodoro.")
     for pomodori in range(0,3):
         print("Pomodoro {}/{} ".format(pomodori + 1, 4), end="")
         timer()

@@ -61,10 +61,8 @@ def main(TIME, BREAK):
 
 
 if __name__ == "__main__":
-    #TIME = 25
-    #BREAK= 5
-    TIME = 1
-    BREAK = 1
+    TIME = 25
+    BREAK= 5
     args = getArgs()
     if args.buster:
         TIME = 10

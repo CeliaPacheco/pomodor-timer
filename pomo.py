@@ -10,32 +10,32 @@ def getArgs(argv=None):
     parser = argparse.ArgumentParser(description="Pomodoro Timer with various \
             length of pomodor")
     parser.add_argument('-s','--standard', action='store_true', default=True,
-            help='25 min work, 5 min break\tDEFAULT')
+            help='25 min work, 5 min brk\tDEFAULT')
     parser.add_argument('-b','--buster', action='store_true', default=False,
-            help='10 min work, 2 min break')
+            help='10 min work, 2 min brk')
     parser.add_argument('-g','--golden', action='store_true', default=False,
-            help='50 min work, 15 min break')
+            help='50 min work, 15 min brk')
     parser.add_argument('-bu','--busy', action='store_true', default=False,
-            help='90 min work, 30 min break')
+            help='90 min work, 30 min brk')
     return parser.parse_args(argv)
 
 
 def pomodori_msg(pomodoro):
-    msg = 'notify-send "BREAK ⏳ Timer done! Take a coffee break! ☕ 🍩 \
+    msg = 'notify-send "brk ⏳ Timer done! Take a coffee brk! ☕ 🍩 \
 pomodoro {}/{}"'.format(pomodoro + 1, 4)
     return msg
 
-def break_msg():
+def brk_msg():
     msg = 'notify-send "WORK ⏳ Timer done! Back to work!"'
     return msg
 
-def format_times(time):
-    return time.isoformat(timespec="seconds")
+def format_times(time_str):
+    return time_str.isoformat(timespec="seconds")
 
-def timer(time):
+def timer(run_time):
     running = True
     start = datetime.now()
-    end = format_times(datetime.time(start + timedelta(minutes = time)))
+    end = format_times(datetime.time(start + timedelta(minutes = run_time)))
     start = format_times(datetime.time(start))
     print("start {}, end {}".format(start, end))
     while running:
@@ -50,29 +50,29 @@ def timer(time):
                 print("Goodbye")
                 sys.exit(0)
 
-def main(TIME, BREAK):
+def main(work, brk):
     print("Remember:\n- No task larger than 5 pomodori.\n\
 - Any interruptions = restart the pomodoro.")
     for pomodori in range(0,3):
         print("Pomodoro {}/{} ".format(pomodori + 1, 4), end="")
-        timer(TIME)
+        timer(work)
         os.system(pomodori_msg(pomodori))
         print("Break {} ".format(pomodori + 1), end="")
-        timer(BREAK)
-        os.system(break_msg())
+        timer(brk)
+        os.system(brk_msg())
 
 
 if __name__ == "__main__":
-    TIME = 25
-    BREAK= 5
+    work = 25
+    brk= 5
     args = getArgs()
     if args.buster:
-        TIME = 10
-        BREAK = 2
+        work = 10
+        brk = 2
     elif args.golden:
-        TIME = 50
-        BREAK = 15
+        work = 50
+        brk = 15
     elif args.busy:
-        TIME = 90
-        BREAK = 30
-    main(TIME, BREAK)
+        work = 90
+        brk = 30
+    main(work, brk)

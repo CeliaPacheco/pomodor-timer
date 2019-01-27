@@ -32,10 +32,10 @@ def break_msg():
 def format_times(time):
     return time.isoformat(timespec="seconds")
 
-def timer():
+def timer(time):
     running = True
     start = datetime.now()
-    end = format_times(datetime.time(start + timedelta(minutes = TIME)))
+    end = format_times(datetime.time(start + timedelta(minutes = time)))
     start = format_times(datetime.time(start))
     print("start {}, end {}".format(start, end))
     while running:
@@ -55,10 +55,10 @@ def main(TIME, BREAK):
 - Any interruptions = restart the pomodoro.")
     for pomodori in range(0,3):
         print("Pomodoro {}/{} ".format(pomodori + 1, 4), end="")
-        timer()
+        timer(TIME)
         os.system(pomodori_msg(pomodori))
         print("Break {} ".format(pomodori + 1), end="")
-        timer()
+        timer(BREAK)
         os.system(break_msg())
 
 

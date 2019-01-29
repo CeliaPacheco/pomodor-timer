@@ -78,5 +78,5 @@ if __name__ == "__main__":
         work = 90
         brk = 30
     if args.pomodori:
-        pom = args.pomodori
+        pom = int(args.pomodori)
     main(work, brk, pom)

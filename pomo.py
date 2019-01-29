@@ -9,19 +9,21 @@ import sys
 def getArgs(argv=None):
     parser = argparse.ArgumentParser(description="Pomodoro Timer with various \
             length of pomodoro.\n\
-Default is 25 min work, 5 min break, 4 pomodori")
+            Default is 25 min work, 5 min break, 4 pomodori")
     parser.add_argument('-b','--buster', action='store_true', default=False,
             help='10 min work, 2 min brk')
     parser.add_argument('-g','--golden', action='store_true', default=False,
             help='50 min work, 15 min brk')
     parser.add_argument('-bu','--busy', action='store_true', default=False,
             help='90 min work, 30 min brk')
+    parser.add_argument('-p','--pomodori', help='Set number of pomodori, default\
+is 4')
     return parser.parse_args(argv)
 
 
-def pomodori_msg(pomodoro):
-    msg = 'notify-send "brk ⏳ Timer done! Take a coffee brk! ☕ 🍩 \
-pomodoro {}/{}"'.format(pomodoro + 1, 4)
+def pomodori_msg(pomodoro, pom):
+    msg = 'notify-send "BREAK ⏳ Timer done! Take a coffee BREAK! ☕ 🍩 \
+pomodoro {}/{}"'.format(pomodoro + 1, pom)
     return msg
 
 def brk_msg():
@@ -41,7 +43,7 @@ def timer(run_time):
         now = format_times(datetime.time(datetime.now()))
         print("{}\r".format(now), end="", flush=True)
         if end == now:
-            running = False 
+            running = False
         else:
             try:
                 time.sleep(1)
@@ -49,11 +51,11 @@ def timer(run_time):
                 print("Goodbye")
                 sys.exit(0)
 
-def main(work, brk):
+def main(work, brk, pom):
     print("Remember:\n- No task larger than 5 pomodori.\n\
 - Any interruptions = restart the pomodoro.")
-    for pomodori in range(0,3):
-        print("Pomodoro {}/{} ".format(pomodori + 1, 4), end="")
+    for pomodori in range(pom):
+        print("Pomodoro {}/{} ".format(pomodori + 1, pom), end="")
         timer(work)
         os.system(pomodori_msg(pomodori))
         print("Break {} ".format(pomodori + 1), end="")
@@ -63,7 +65,8 @@ def main(work, brk):
 
 if __name__ == "__main__":
     work = 25
-    brk= 5
+    brk = 5
+    pom = 4
     args = getArgs()
     if args.buster:
         work = 10
@@ -74,4 +77,6 @@ if __name__ == "__main__":
     elif args.busy:
         work = 90
         brk = 30
-    main(work, brk)
+    if args.pomodori:
+        pom = args.pomodori
+    main(work, brk, pom)

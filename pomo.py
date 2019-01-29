@@ -57,7 +57,7 @@ def main(work, brk, pom):
     for pomodori in range(pom):
         print("Pomodoro {}/{} ".format(pomodori + 1, pom), end="")
         timer(work)
-        os.system(pomodori_msg(pomodori))
+        os.system(pomodori_msg(pomodori, pom))
         print("Break {} ".format(pomodori + 1), end="")
         timer(brk)
         os.system(brk_msg())

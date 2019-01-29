@@ -8,9 +8,8 @@ import sys
 
 def getArgs(argv=None):
     parser = argparse.ArgumentParser(description="Pomodoro Timer with various \
-            length of pomodor")
-    parser.add_argument('-s','--standard', action='store_true', default=True,
-            help='25 min work, 5 min brk\tDEFAULT')
+            length of pomodoro.\n\
+Default is 25 min work, 5 min break, 4 pomodori")
     parser.add_argument('-b','--buster', action='store_true', default=False,
             help='10 min work, 2 min brk')
     parser.add_argument('-g','--golden', action='store_true', default=False,

@@ -23,11 +23,13 @@ is 4')
 
 def pomodori_msg(pomodoro, pom):
     msg = 'notify-send "BREAK ⏳ Timer done! Take a coffee BREAK! ☕ 🍩 \
-pomodoro {}/{}"'.format(pomodoro + 1, pom)
+pomodoro {}/{}"; \
+paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga'.format(pomodoro + 1, pom)
     return msg
 
 def brk_msg():
-    msg = 'notify-send "WORK ⏳ Timer done! Back to work!"'
+    msg = 'notify-send "WORK ⏳ Timer done! Back to work!"; \
+            paplay /usr/share/sounds/freedesktop/stereo/complete.oga'
     return msg
 
 def format_times(time_str):

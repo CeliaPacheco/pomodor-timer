@@ -38,13 +38,13 @@ def format_times(time_str):
 def timer(run_time):
     running = True
     start = datetime.now()
-    end = format_times(datetime.time(start + timedelta(minutes = run_time)))
+    end = format_times(datetime.time(start + timedelta(minutes=run_time)))
     start = format_times(datetime.time(start))
     print("start {}, end {}".format(start, end))
     while running:
         now = format_times(datetime.time(datetime.now()))
         print("{}\r".format(now), end="", flush=True)
-        if end == now:
+        if end == now or end < now:
             running = False
         else:
             try:
@@ -63,6 +63,8 @@ def main(work, brk, pom):
         print("Break {} ".format(pomodori + 1), end="")
         timer(brk)
         os.system(brk_msg())
+    print("Goodbye")
+    sys.exit(0)
 
 
 if __name__ == "__main__":
